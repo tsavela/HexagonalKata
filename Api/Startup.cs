@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.InboundPorts;
+using Core.OutboundPorts;
+using External;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +31,10 @@ namespace Api
         {
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Api", Version = "v1"}); });
+
+            // Dependency injection registrations
+            services.AddScoped<PurchaseService>();
+            services.AddScoped<IPricingClient, PricingClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
