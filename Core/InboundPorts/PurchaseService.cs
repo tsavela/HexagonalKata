@@ -12,7 +12,7 @@ namespace Core.InboundPorts
             _pricingClient = pricingClient;
         }
 
-        public Order Purchase(int quantity)
+        public Order Purchase(OrderQuantity quantity)
         {
             var pricePerItem = _pricingClient.GetPriceForItem();
             return new Order(pricePerItem * quantity);
