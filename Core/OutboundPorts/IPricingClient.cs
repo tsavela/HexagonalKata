@@ -1,7 +1,9 @@
-﻿namespace Core.OutboundPorts
+﻿using Core.Domain;
+
+namespace Core.OutboundPorts
 {
     public interface IPricingClient
     {
-        decimal GetPriceForItem();
+        ItemPrice GetPriceForItem();
     }
 }

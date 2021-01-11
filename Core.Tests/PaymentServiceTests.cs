@@ -1,5 +1,7 @@
+using Core.Domain;
 using Core.InboundPorts;
 using Core.OutboundPorts;
+using Core.Tests.AutoFixture;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
@@ -22,19 +24,20 @@ namespace Core.Tests
             actual.Should().NotBeNull();
         }
 
-        [Fact]
-        public void Purchase_ShouldReturnCorrectTotalPrice_WhenGivenValidQuantity()
+        [Theory]
+        [DomainAutoData]
+        public void Purchase_ShouldReturnCorrectTotalPrice_WhenGivenValidQuantity(OrderQuantity quantity, ItemPrice itemPrice)
         {
             // Arrange
             var pricingServiceMock = Substitute.For<IPricingClient>();
-            pricingServiceMock.GetPriceForItem().Returns(100m);
+            pricingServiceMock.GetPriceForItem().Returns(itemPrice);
             var sut = new PurchaseService(pricingServiceMock);
 
             // Act
-            var actual = sut.Purchase(2);
+            var actual = sut.Purchase(quantity);
 
             // Assert
-            actual.TotalPrice.Should().Be(200);
+            actual.TotalPrice.Should().Be(quantity * itemPrice);
         }
     }
 }

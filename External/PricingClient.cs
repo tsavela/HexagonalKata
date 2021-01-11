@@ -1,10 +1,11 @@
-﻿using Core.OutboundPorts;
+﻿using Core.Domain;
+using Core.OutboundPorts;
 
 namespace External
 {
     public class PricingClient : IPricingClient
     {
-        public decimal GetPriceForItem()
+        public ItemPrice GetPriceForItem()
         {
             return 123;
         }

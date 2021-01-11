@@ -16,7 +16,7 @@ namespace External.Tests
             var actual = sut.GetPriceForItem();
 
             // Assert
-            actual.Should().BePositive();
+            actual.Value.Should().BePositive();
         }
     }
 }
